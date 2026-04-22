@@ -22,6 +22,11 @@
         name: "openjdk-{{ java_version }}-jre-headless"
         state: present
 
+    - name: Install Java {{ java_version }} JDK
+      apt:
+        name: "openjdk-{{ java_version }}-jdk-headless"
+        state: present
+
     # ── Local database installation ───────────────────────────────────────────
     - name: Install PostgreSQL server
       apt:
@@ -111,7 +116,7 @@
       shell: |
         cd "{{ app_dir }}"
         chmod +x mvnw
-        ./mvnw package -DskipTests -q
+        JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac)))) ./mvnw package -DskipTests -q
       args:
         executable: /bin/bash
 
