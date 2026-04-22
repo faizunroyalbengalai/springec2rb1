@@ -136,7 +136,7 @@
 
     - name: Set app_jar fact
       set_fact:
-        app_jar: "{{ jar_search.files | sort(attribute='mtime') | last | json_query('path') }}"
+        app_jar: "{{ (jar_search.files | sort(attribute='mtime') | last).path }}"
 
     - name: Create systemd service for Spring Boot
       copy:
