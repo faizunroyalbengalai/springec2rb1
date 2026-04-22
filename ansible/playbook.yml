@@ -107,6 +107,14 @@
         mode: preserve
       notify: Restart app
 
+    - name: Install Maven dependencies and build JAR
+      shell: |
+        cd "{{ app_dir }}"
+        chmod +x mvnw
+        ./mvnw package -DskipTests -q
+      args:
+        executable: /bin/bash
+
     - name: Find uploaded JAR
       find:
         paths:
